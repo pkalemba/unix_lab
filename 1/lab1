@@ -1,0 +1,49 @@
+#!/bin/bash
+set -x
+RAND=$RANDOM
+mkdir $RAND
+cd $RAND
+echo "Temp folder name $RAND"
+echo "1.Touch"
+touch plik1
+sleep 2
+echo "1.5long runing proccess"
+sleep 600 &
+sleep 2
+echo "1.5 Kill this process"
+pgrep -n "sleep" |xargs kill -9
+sleep 2
+echo "2.Mkdir"
+mkdir katalog1
+sleep 2
+echo "3.MV"
+mv plik1 plik2
+mv katalog1 katalog2
+sleep 2
+echo "4.chmod"
+chmod 777 plik2
+chmod 777 katalog2
+sleep 2
+echo "5.ln"
+ln -s plik2 link_plik
+ln -s katalog2 link_katalog
+sleep 2
+echo "6 Rm"
+rm -fr katalog2
+sleep 2
+echo "7.Find"
+find /etc/* -mtime -3 -size -1k
+find /etc/* -mtime -30 -m -size -1k
+sleep 2
+echo "8.Find2"
+find /home/pkalemba/*  |grep -v ".gconf"
+sleep 2
+echo "9.Find3"
+find /etc/* -type f |less
+sleep 2
+echo "10. Argumenty"
+echo "Arg1:$1 Arg2:$2"
+sleep 2
+cd ..
+rm $RAND -fr
+set +x
