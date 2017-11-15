@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ $# -eq 0 ]
+then
+    interval=10
+else
+    interval=$1
+fi
+while :
+sec=$(date +"%S")
+do
+if [ $((sec% interval)) -eq 0 ]
+then
+    clear
+    date
+fi
+sleep $interval
+done

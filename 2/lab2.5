@@ -1,0 +1,34 @@
+#!/bin/env  bash
+POSITIONAL=()
+DIR=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+    -d|--dir)
+    DIR+=($2)
+    shift # past argument
+    shift # past value
+    ;;
+    -a|--all)
+    LONG='-a'
+    shift # past argument
+    ;;
+    *)    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${POSITIONAL[@]}"
+if [ ${#DIR[@]} -eq 0 ]; then
+    ls -l $LONG|wc -l
+else
+    COUNT=0
+    for i in "${DIR[@]}"
+    do
+    COUNT=$(($COUNT + $(ls -l $LONG $i|wc -l)))
+    done
+    echo $COUNT
+fi
+
